@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M1 Padel Ranking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <style>
         :root {
-            --padel-neon: #ccff00; /* Giallo Padel Fluo */
+            --padel-neon: #ccff00;
+            /* Giallo Padel Fluo */
             --bg-dark: #0f172a;
             --bg-card: rgba(30, 41, 59, 0.7);
             --text-main: #e2e8f0;
@@ -25,7 +29,9 @@
             padding-bottom: 40px;
         }
 
-        h1, h2, .rank-number {
+        h1,
+        h2,
+        .rank-number {
             font-family: 'Teko', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -37,7 +43,8 @@
             background: url('https://images.unsplash.com/photo-1626248316239-0144f86d8b09?q=80&w=2000&auto=format&fit=crop') center/cover;
             padding: 80px 0;
             position: relative;
-            margin-bottom: -40px; /* Overlap effect */
+            margin-bottom: -40px;
+            /* Overlap effect */
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
@@ -45,7 +52,10 @@
         .hero-overlay {
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
             position: absolute;
-            top:0; left:0; right:0; bottom:0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .main-title {
@@ -67,12 +77,13 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         /* Effetto Spotlight per il #1 */
         .top-player-card {
             border: 2px solid var(--padel-neon);
             box-shadow: 0 0 25px rgba(204, 255, 0, 0.15);
         }
+
         .top-player-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 40px rgba(204, 255, 0, 0.3);
@@ -84,8 +95,9 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
+
         .player-avatar-large {
             width: 100px;
             height: 100px;
@@ -105,43 +117,75 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px; /* Squircle */
+            border-radius: 8px;
+            /* Squircle */
             margin: 0 auto;
             font-family: 'Teko', sans-serif;
-            padding-top: 4px; /* Ottica adjustment font */
+            padding-top: 4px;
+            /* Ottica adjustment font */
         }
-        .rank-1 { background: var(--padel-neon); color: #000; box-shadow: 0 0 15px var(--padel-neon); }
-        .rank-2 { background: #e2e8f0; color: #0f172a; }
-        .rank-3 { background: #d97706; color: #fff; }
-        .rank-other { background: rgba(255,255,255,0.1); color: #94a3b8; }
+
+        .rank-1 {
+            background: var(--padel-neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--padel-neon);
+        }
+
+        .rank-2 {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .rank-3 {
+            background: #d97706;
+            color: #fff;
+        }
+
+        .rank-other {
+            background: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
 
         /* Table Styling */
         .table-custom {
             --bs-table-bg: transparent;
             --bs-table-color: #fff;
             border-collapse: separate;
-            border-spacing: 0 10px; /* Spazio tra le righe */
+            border-spacing: 0 10px;
+            /* Spazio tra le righe */
         }
+
         .table-custom tbody tr {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             transition: background 0.2s;
         }
+
         .table-custom tbody tr:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
         }
+
         .table-custom td {
             border: none;
             vertical-align: middle;
             padding: 15px;
         }
-        .table-custom td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-        .table-custom td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+        .table-custom td:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .table-custom td:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
 
         .player-name {
             font-weight: 700;
             font-size: 1.1rem;
             color: #fff;
         }
+
         .player-nickname {
             font-size: 0.85rem;
             color: #94a3b8;
@@ -151,12 +195,71 @@
 
         /* Responsive Fixes */
         @media (max-width: 768px) {
-            .main-title { font-size: 3rem; }
-            .player-avatar { width: 40px; height: 40px; }
-            .hide-mobile { display: none; }
+            .main-title {
+                font-size: 3rem;
+            }
+
+            .player-avatar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hide-mobile {
+                display: none;
+            }
+        }
+
+        /* Modal Custom Styles */
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-family: 'Teko', sans-serif;
+            letter-spacing: 1px;
+            font-size: 2rem;
+        }
+
+        .btn-close-white {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--padel-neon);
+            font-family: 'Teko', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1px;
         }
     </style>
 </head>
+
 <body>
 
     <div class="hero-section text-center text-white">
@@ -173,25 +276,25 @@
     </div>
 
     <div class="container" style="position: relative; z-index: 2;">
-        
+
         <div class="row justify-content-center mb-5 animate__animated animate__zoomIn" id="top-player-spotlight">
-            </div>
+        </div>
 
         <div class="card card-custom p-3 p-md-4 animate__animated animate__fadeInUp animate__delay-1s">
-            <h2 class="mb-4 text-center text-white">Classifica Generale</h2>
+            <h2 class="mb-4 text-center text-white">General Ranking</h2>
             <div class="table-responsive">
                 <table class="table table-custom">
                     <thead>
                         <tr class="text-uppercase small text-muted">
                             <th class="text-center" style="width: 60px;">Rank</th>
-                            <th>Giocatore</th>
-                            <th class="text-center">Partite</th>
+                            <th>Player</th>
+                            <th class="text-center">Matches</th>
                             <th class="text-center hide-mobile">W / L</th>
-                            <th class="text-center text-info" style="color: var(--padel-neon) !important;">Punti</th>
+                            <th class="text-center text-info" style="color: var(--padel-neon) !important;">Points</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
             <p class="text-center text-muted mt-4 small font-monospace">
@@ -205,26 +308,129 @@
         <p class="opacity-50">Powered by Bar Lo Spaccino.</p>
     </footer>
 
+    <!-- Player Details Modal -->
+    <div class="modal fade" id="playerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="playerModalLabel">Player Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <img id="modal-avatar" src="" class="player-avatar-large mb-3" alt="Player Avatar">
+                        <h3 id="modal-name" class="fw-bold mb-0"></h3>
+                        <p id="modal-nickname" class="text-secondary text-uppercase tracking-wider"></p>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-value" id="modal-points"></div>
+                                <div class="stat-label">Points</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-value text-white" id="modal-matches"></div>
+                                <div class="stat-label">Matches</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-value text-success" id="modal-won"></div>
+                                <div class="stat-label">Won</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-value" style="color: #ff4d4d;" id="modal-lost"></div>
+                                <div class="stat-label">Lost</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="text-white mb-3" style="font-family: 'Teko'; letter-spacing: 1px;">MATCH HISTORY</h5>
+                    <div class="table-responsive">
+                        <table class="table table-custom table-sm">
+                            <thead>
+                                <tr class="text-muted small text-uppercase">
+                                    <th>Date</th>
+                                    <th class="text-center">Result</th>
+                                    <th class="text-center">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modal-match-history">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Required for Modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         // --- 1. CONFIGURAZIONE DATI ---
         const lastUpdate = "04/12/2025";
-        
+
         // NOTA: Assicurati di avere una cartella 'images' con i file nominati come sotto.
         // Se non hai l'immagine, userà un placeholder generico.
         const players = [
-            { name: "Nicola Paganelli", nickname: "Carroar", img: "images/paga.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Nicolas Amadori", nickname: "Gunter", img: "images/ama.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Pietro Maggioli", nickname: "Pimo", img: "images/pimo.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Niccolò Ricci", nickname: "Trash Talker", img: "images/ricci.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Juri Guglielmi", nickname: "Juj", img: "images/juri.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Lorenzo Zavoli", nickname: "Commissioni", img: "images/lorenzo.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Matteo Renzi", nickname: "Talpa", img: "images/matte.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Manuel Benedettini", nickname: "Max", img: "images/manu.png", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Federico Bascioni", nickname: "Peku", img: "images/federico.png", points: 0, matches: 0, won: 8, lost: 0 },
+            { id: 1, name: "Nicola Paganelli", nickname: "Carroar", img: "images/paga.png" },
+            { id: 2, name: "Nicolas Amadori", nickname: "Gunter", img: "images/ama.png" },
+            { id: 3, name: "Pietro Maggioli", nickname: "Pimo", img: "images/pimo.png" },
+            { id: 4, name: "Niccolò Ricci", nickname: "Trash Talker", img: "images/ricci.png" },
+            { id: 5, name: "Juri Guglielmi", nickname: "Juj", img: "images/juri.png" },
+            { id: 6, name: "Lorenzo Zavoli", nickname: "Commissioni", img: "images/lorenzo.png" },
+            { id: 7, name: "Matteo Renzi", nickname: "Talpa", img: "images/matte.png" },
+            { id: 8, name: "Manuel Benedettini", nickname: "Max", img: "images/manu.png" },
+            { id: 9, name: "Federico Bascioni", nickname: "Peku", img: "images/federico.png" },
+        ];
+
+        const matchDays = [
+            {
+                date: "01/12/2025",
+                results: [
+                    { playerId: 1, won: 8, lost: 0 },
+                    { playerId: 2, won: 6, lost: 2 },
+                    { playerId: 3, won: 5, lost: 3 },
+                    { playerId: 4, won: 4, lost: 4 },
+                    { playerId: 5, won: 3, lost: 5 },
+                    { playerId: 6, won: 2, lost: 6 },
+                    { playerId: 7, won: 1, lost: 7 },
+                    { playerId: 8, won: 0, lost: 8 },
+                    { playerId: 9, won: 8, lost: 0 },
+                ]
+            }
         ];
 
         // --- 2. LOGICA DI RENDERING ---
-        
+
+        // Calcolo Punti e Statistiche
+        players.forEach(player => {
+            player.matches = 0;
+            player.won = 0;
+            player.lost = 0;
+            player.points = 0;
+        });
+
+        matchDays.forEach(day => {
+            day.results.forEach(result => {
+                const player = players.find(p => p.id === result.playerId);
+                if (player) {
+                    player.matches += 1;
+                    player.won += result.won;
+                    player.lost += result.lost;
+                    player.points += (result.won * 250);
+                }
+            });
+        });
+
         // Ordina (Decrescente)
         players.sort((a, b) => b.points - a.points);
 
@@ -236,7 +442,7 @@
         function getImg(src, name) {
             // Nota: In produzione locale, se l'immagine manca si vedrà l'icona "rotta". 
             // Per gestire errori veri serve un event listener 'onerror' nell'HTML tag, qui semplifichiamo.
-            return src; 
+            return src;
         }
 
         // Render TOP PLAYER (Spotlight)
@@ -275,13 +481,15 @@
             const rank = index + 1;
             let badgeClass = 'rank-other';
             let rowClass = '';
-            
-            if(rank === 1) { badgeClass = 'rank-1'; rowClass = 'table-active'; }
-            if(rank === 2) badgeClass = 'rank-2';
-            if(rank === 3) badgeClass = 'rank-3';
+
+            if (rank === 1) { badgeClass = 'rank-1'; rowClass = 'table-active'; }
+            if (rank === 2) badgeClass = 'rank-2';
+            if (rank === 3) badgeClass = 'rank-3';
+
+
 
             const row = `
-                <tr>
+                <tr onclick="openPlayerModal(${player.id})" style="cursor: pointer;">
                     <td class="text-center">
                         <div class="rank-badge ${badgeClass}">${rank}</div>
                     </td>
@@ -297,7 +505,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="text-center text-muted fw-bold">${player.matches}</td>
+                    <td class="text-center text-white fw-bold">${player.matches}</td>
                     <td class="text-center hide-mobile">
                         <span class="text-success fw-bold">${player.won}</span> 
                         <span class="text-muted mx-1">/</span>
@@ -308,6 +516,78 @@
             `;
             tableBody.innerHTML += row;
         });
+
+        // --- 3. MODAL LOGIC ---
+        const playerModal = new bootstrap.Modal(document.getElementById('playerModal'));
+
+        function openPlayerModal(playerId) {
+            const player = players.find(p => p.id === playerId);
+            if (!player) return;
+
+            // Populate Header
+            document.getElementById('modal-name').textContent = player.name;
+            document.getElementById('modal-nickname').textContent = `'${player.nickname}'`;
+            document.getElementById('modal-avatar').src = player.img;
+            document.getElementById('modal-avatar').onerror = function () {
+                this.src = `https://ui-avatars.com/api/?name=${player.name}&background=ccff00&color=000`;
+            };
+
+            // Populate Stats
+            document.getElementById('modal-points').textContent = player.points;
+            document.getElementById('modal-matches').textContent = player.matches;
+            document.getElementById('modal-won').textContent = player.won;
+            document.getElementById('modal-lost').textContent = player.lost;
+
+            // Populate History
+            const historyBody = document.getElementById('modal-match-history');
+            historyBody.innerHTML = '';
+
+            const playerHistory = [];
+            matchDays.forEach(day => {
+                const result = day.results.find(r => r.playerId === playerId);
+                if (result) {
+                    playerHistory.push({
+                        date: day.date,
+                        won: result.won,
+                        lost: result.lost,
+                        points: result.won * 250
+                    });
+                }
+            });
+
+            // Sort history by date desc (optional, assuming matchDays is already sorted or we want latest first)
+            // playerHistory.reverse(); 
+
+            if (playerHistory.length === 0) {
+                historyBody.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Nessuna partita giocata</td></tr>';
+            } else {
+                playerHistory.forEach(match => {
+                    const resultBadge = match.won > match.lost
+                        ? '<span class="badge bg-success">WIN</span>'
+                        : (match.won < match.lost ? '<span class="badge bg-danger">LOSS</span>' : '<span class="badge bg-secondary">DRAW</span>');
+
+                    // Simple logic: if won > 0 it's a win? Or is it sets? 
+                    // Based on "won: 8, lost: 0" it seems like games or sets. 
+                    // Let's display the score.
+
+                    const scoreDisplay = `<span class="text-success">${match.won}</span> - <span class="text-danger">${match.lost}</span>`;
+
+                    const row = `
+                        <tr>
+                            <td>${match.date}</td>
+                            <td class="text-center">
+                                ${scoreDisplay}
+                            </td>
+                            <td class="text-center" style="color: var(--padel-neon)">+${match.points}</td>
+                        </tr>
+                    `;
+                    historyBody.innerHTML += row;
+                });
+            }
+
+            playerModal.show();
+        }
     </script>
 </body>
+
 </html>
