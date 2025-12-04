@@ -303,6 +303,17 @@
         </div>
     </div>
 
+    <!-- Match Days Section -->
+    <div class="row justify-content-center mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="col-12">
+            <h2 class="text-center text-white mb-4">Match History</h2>
+            <div class="d-flex flex-wrap justify-content-center gap-3" id="match-days-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+    </div>
+
     <footer class="text-center py-5 text-muted small">
         <p class="mb-1">&copy; 2025 M1 Padel Tour.</p>
         <p class="opacity-50">Powered by Bar Lo Spaccino.</p>
@@ -371,6 +382,38 @@
         </div>
     </div>
 
+    <!-- Match Day Details Modal -->
+    <div class="modal fade" id="matchDayModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="matchDayModalLabel">Match Day Ranking</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center text-white mb-4" id="match-day-date" style="font-family: 'Teko';"></h4>
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr class="text-uppercase small text-muted">
+                                    <th class="text-center" style="width: 60px;">Rank</th>
+                                    <th>Player</th>
+                                    <th class="text-center">W / L</th>
+                                    <th class="text-center text-info" style="color: var(--padel-neon) !important;">
+                                        Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="match-day-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS (Required for Modal) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -406,6 +449,20 @@
                     { playerId: 8, won: 0, lost: 8 },
                     { playerId: 9, won: 8, lost: 0 },
                 ]
+            },
+            {
+                date: "02/12/2025",
+                results: [
+                    { playerId: 1, won: 2, lost: 6 },
+                    { playerId: 2, won: 5, lost: 3 },
+                    { playerId: 3, won: 8, lost: 0 },
+                    { playerId: 4, won: 1, lost: 7 },
+                    { playerId: 5, won: 4, lost: 4 },
+                    { playerId: 6, won: 6, lost: 2 },
+                    { playerId: 7, won: 3, lost: 5 },
+                    { playerId: 8, won: 7, lost: 1 },
+                    { playerId: 9, won: 0, lost: 8 },
+                ]
             }
         ];
 
@@ -423,7 +480,7 @@
             day.results.forEach(result => {
                 const player = players.find(p => p.id === result.playerId);
                 if (player) {
-                    player.matches += 1;
+                    player.matches += result.won + result.lost;
                     player.won += result.won;
                     player.lost += result.lost;
                     player.points += (result.won * 250);
@@ -448,7 +505,7 @@
         // Render TOP PLAYER (Spotlight)
         const topPlayer = players[0];
         spotlight.innerHTML = `
-            <div class="col-md-8 col-lg-5">
+            <div class="col-md-6 col-lg-4">
                 <div class="card card-custom top-player-card text-center p-4">
                     <div style="color: var(--padel-neon); font-family: 'Teko'; font-size: 1.5rem; letter-spacing: 2px;">
                         👑 CURRENT NUMBER #1
@@ -586,6 +643,80 @@
             }
 
             playerModal.show();
+        }
+
+        // --- 4. MATCH DAY LOGIC ---
+        const matchDayModal = new bootstrap.Modal(document.getElementById('matchDayModal'));
+        const matchDaysList = document.getElementById('match-days-list');
+
+        // Render Match Days List
+        matchDays.forEach((day, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-outline-light border-secondary px-4 py-2 rounded-pill';
+            btn.style.backdropFilter = 'blur(5px)';
+            btn.innerHTML = `📅 ${day.date}`;
+            btn.onclick = () => openMatchDayModal(day.date);
+            matchDaysList.appendChild(btn);
+        });
+
+        function openMatchDayModal(date) {
+            const day = matchDays.find(d => d.date === date);
+            if (!day) return;
+
+            document.getElementById('match-day-date').textContent = `Ranking for ${day.date}`;
+            const tbody = document.getElementById('match-day-body');
+            tbody.innerHTML = '';
+
+            // Calculate ranking for this day
+            const dayRanking = day.results.map(result => {
+                const player = players.find(p => p.id === result.playerId);
+                return {
+                    player: player,
+                    won: result.won,
+                    lost: result.lost,
+                    points: result.won * 250
+                };
+            });
+
+            // Sort by points desc
+            dayRanking.sort((a, b) => b.points - a.points);
+
+            dayRanking.forEach((item, index) => {
+                const rank = index + 1;
+                let badgeClass = 'rank-other';
+
+                if (rank === 1) badgeClass = 'rank-1';
+                if (rank === 2) badgeClass = 'rank-2';
+                if (rank === 3) badgeClass = 'rank-3';
+
+                const row = `
+                    <tr>
+                        <td class="text-center">
+                            <div class="rank-badge ${badgeClass}">${rank}</div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="${item.player.img}" 
+                                     class="player-avatar me-3 shadow-sm" 
+                                     alt="${item.player.name}"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${item.player.name}&background=random&color=fff'">
+                                <div>
+                                    <div class="player-name">${item.player.name}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="text-success fw-bold">${item.won}</span> 
+                            <span class="text-muted mx-1">/</span>
+                            <span class="text-danger fw-bold">${item.lost}</span>
+                        </td>
+                        <td class="text-center fw-bold fs-4" style="color: var(--padel-neon); font-family:'Teko'">${item.points}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+
+            matchDayModal.show();
         }
     </script>
 </body>
