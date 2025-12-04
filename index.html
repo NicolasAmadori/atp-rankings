@@ -3,151 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pietracuta ATP Finals - Ranking</title>
+    <title>M1 Padel Ranking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
+        :root {
+            --padel-neon: #ccff00; /* Giallo Padel Fluo */
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text-main: #e2e8f0;
+        }
+
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #fff;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            color: var(--text-main);
             font-family: 'Roboto', sans-serif;
             min-height: 100vh;
+            padding-bottom: 40px;
         }
-        h1, h2 {
+
+        h1, h2, .rank-number {
             font-family: 'Teko', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
+
+        /* Hero Section "Hype" */
         .hero-section {
-            background: url('https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=2000&auto=format&fit=crop') center/cover;
-            padding: 60px 0;
+            /* Immagine Padel più "gasante" */
+            background: url('https://images.unsplash.com/photo-1626248316239-0144f86d8b09?q=80&w=2000&auto=format&fit=crop') center/cover;
+            padding: 80px 0;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            margin-bottom: -40px; /* Overlap effect */
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
+
         .hero-overlay {
-            background: rgba(15, 23, 42, 0.85);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
             position: absolute;
             top:0; left:0; right:0; bottom:0;
         }
-        .card-custom {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+
+        .main-title {
+            color: #fff;
+            text-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+            font-size: 4rem;
         }
+
+        .accent-text {
+            color: var(--padel-neon);
+        }
+
+        /* Cards & Glassmorphism */
+        .card-custom {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Effetto Spotlight per il #1 */
+        .top-player-card {
+            border: 2px solid var(--padel-neon);
+            box-shadow: 0 0 25px rgba(204, 255, 0, 0.15);
+        }
+        .top-player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(204, 255, 0, 0.3);
+        }
+
+        /* Avatar Styles */
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .player-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--padel-neon);
+            box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+            margin-bottom: 15px;
+        }
+
+        /* Rank Badges */
         .rank-badge {
             font-size: 1.2rem;
             font-weight: bold;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 8px; /* Squircle */
             margin: 0 auto;
+            font-family: 'Teko', sans-serif;
+            padding-top: 4px; /* Ottica adjustment font */
         }
-        .rank-1 { background-color: #ffd700; color: #000; box-shadow: 0 0 10px #ffd700; }
-        .rank-2 { background-color: #c0c0c0; color: #000; }
-        .rank-3 { background-color: #cd7f32; color: #000; }
-        .rank-other { background-color: #334155; color: #fff; }
+        .rank-1 { background: var(--padel-neon); color: #000; box-shadow: 0 0 15px var(--padel-neon); }
+        .rank-2 { background: #e2e8f0; color: #0f172a; }
+        .rank-3 { background: #d97706; color: #fff; }
+        .rank-other { background: rgba(255,255,255,0.1); color: #94a3b8; }
 
+        /* Table Styling */
         .table-custom {
             --bs-table-bg: transparent;
             --bs-table-color: #fff;
-            border-color: rgba(255,255,255,0.1);
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Spazio tra le righe */
         }
-        .trend-up { color: #4ade80; }
-        .trend-down { color: #f87171; }
-        .trend-equal { color: #94a3b8; }
+        .table-custom tbody tr {
+            background: rgba(255,255,255,0.03);
+            transition: background 0.2s;
+        }
+        .table-custom tbody tr:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .table-custom td {
+            border: none;
+            vertical-align: middle;
+            padding: 15px;
+        }
+        .table-custom td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+        .table-custom td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .player-nickname {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .main-title { font-size: 3rem; }
+            .player-avatar { width: 40px; height: 40px; }
+            .hide-mobile { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero-section text-center text-white mb-5">
+    <div class="hero-section text-center text-white">
         <div class="hero-overlay"></div>
-        <div class="container position-relative">
-            <h1 class="display-3 fw-bold text-info">Pietracuta ATP Finals</h1>
-            <p class="lead">Ranking Ufficiale Stagione 2024/2025</p>
+        <div class="container position-relative animate__animated animate__fadeInDown">
+            <h1 class="main-title">M1 ATP <span class="accent-text">RANKINGS</span></h1>
+            <p class="lead fw-light text-uppercase tracking-wider">Official Season 2025/2026</p>
             <div class="mt-4">
-                <span class="badge bg-primary fs-6">Prossimo Match: Giovedì Ore 21:00</span>
+                <span class="badge bg-black border border-secondary text-white py-2 px-3 rounded-pill">
+                    🎾 Next Match: Sabato 14:00
+                </span>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="position: relative; z-index: 2;">
         
-        <div class="row justify-content-center mb-5" id="top-player-spotlight">
+        <div class="row justify-content-center mb-5 animate__animated animate__zoomIn" id="top-player-spotlight">
             </div>
 
-        <div class="card card-custom p-4">
-            <h2 class="mb-4 text-center">Classifica Generale</h2>
+        <div class="card card-custom p-3 p-md-4 animate__animated animate__fadeInUp animate__delay-1s">
+            <h2 class="mb-4 text-center text-white">Classifica Generale</h2>
             <div class="table-responsive">
-                <table class="table table-custom align-middle">
+                <table class="table table-custom">
                     <thead>
                         <tr class="text-uppercase small text-muted">
-                            <th class="text-center">Rank</th>
+                            <th class="text-center" style="width: 60px;">Rank</th>
                             <th>Giocatore</th>
                             <th class="text-center">Partite</th>
-                            <th class="text-center">Vinte / Perse</th>
-                            <th class="text-center fw-bold text-info">Punti</th>
+                            <th class="text-center hide-mobile">W / L</th>
+                            <th class="text-center text-info" style="color: var(--padel-neon) !important;">Punti</th>
                         </tr>
                     </thead>
                     <tbody id="ranking-body">
                         </tbody>
                 </table>
             </div>
-            <p class="text-center text-muted mt-3 small">Ultimo aggiornamento: <span id="last-update"></span></p>
+            <p class="text-center text-muted mt-4 small font-monospace">
+                LAST UPDATE: <span id="last-update" class="text-white"></span>
+            </p>
         </div>
     </div>
 
-    <footer class="text-center py-4 text-muted small">
-        &copy; 2025 Pietracuta ATP Finals. Powered by GitHub Pages.
+    <footer class="text-center py-5 text-muted small">
+        <p class="mb-1">&copy; 2025 M1 Padel Tour.</p>
+        <p class="opacity-50">Powered by Bar Lo Spaccino.</p>
     </footer>
 
     <script>
-        // --- 1. I TUOI DATI (AGGIORNA QUI) ---
+        // --- 1. CONFIGURAZIONE DATI ---
         const lastUpdate = "04/12/2025";
         
+        // NOTA: Assicurati di avere una cartella 'images' con i file nominati come sotto.
+        // Se non hai l'immagine, userà un placeholder generico.
         const players = [
-            { name: "Nicola Paganelli 'Carroar'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Nicolas Amadori 'Gunter'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Pietro Maggioli 'Pimo'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Niccolò Ricci 'Trash talker'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Juri Guglielmi 'Juj'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Lorenzo Zavoli 'Commissioni'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Matteo Renzi 'Talpa'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Manuel Benedettini 'Max'", points: 0, matches: 0, won: 0, lost: 0 },
-            { name: "Federico Bascioni 'Peku'", points: 0, matches: 0, won: 8, lost: 0 },
+            { name: "Nicola Paganelli", nickname: "Carroar", img: "images/paga.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Nicolas Amadori", nickname: "Gunter", img: "images/ama.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Pietro Maggioli", nickname: "Pimo", img: "images/pimo.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Niccolò Ricci", nickname: "Trash Talker", img: "images/ricci.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Juri Guglielmi", nickname: "Juj", img: "images/juri.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Lorenzo Zavoli", nickname: "Commissioni", img: "images/lorenzo.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Matteo Renzi", nickname: "Talpa", img: "images/matte.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Manuel Benedettini", nickname: "Max", img: "images/manu.png", points: 0, matches: 0, won: 0, lost: 0 },
+            { name: "Federico Bascioni", nickname: "Peku", img: "images/federico.png", points: 0, matches: 0, won: 8, lost: 0 },
         ];
 
-        // --- 2. LOGICA DI RENDERING (NON TOCCARE) ---
+        // --- 2. LOGICA DI RENDERING ---
         
-        // Ordina i giocatori per punti (decrescente)
+        // Ordina (Decrescente)
         players.sort((a, b) => b.points - a.points);
 
         const tableBody = document.getElementById('ranking-body');
         const spotlight = document.getElementById('top-player-spotlight');
         document.getElementById('last-update').textContent = lastUpdate;
 
-        // Render Top Player Card
+        // Funzione helper per immagine fallback (se non trova il file locale usa un avatar generico con le iniziali)
+        function getImg(src, name) {
+            // Nota: In produzione locale, se l'immagine manca si vedrà l'icona "rotta". 
+            // Per gestire errori veri serve un event listener 'onerror' nell'HTML tag, qui semplifichiamo.
+            return src; 
+        }
+
+        // Render TOP PLAYER (Spotlight)
         const topPlayer = players[0];
         spotlight.innerHTML = `
-            <div class="col-md-6 col-lg-4">
-                <div class="card card-custom text-center p-4 border-info border-2">
-                    <div class="text-info text-uppercase fw-bold mb-2">Current Number #1</div>
-                    <h2 class="display-6 fw-bold mb-0">${topPlayer.name}</h2>
-                    <div class="display-1 fw-bold text-white my-2">${topPlayer.points}</div>
-                    <div class="text-muted">PUNTI ATP</div>
+            <div class="col-md-8 col-lg-5">
+                <div class="card card-custom top-player-card text-center p-4">
+                    <div style="color: var(--padel-neon); font-family: 'Teko'; font-size: 1.5rem; letter-spacing: 2px;">
+                        👑 CURRENT NUMBER #1
+                    </div>
+                    <div class="mt-3">
+                        <img src="${topPlayer.img}" 
+                             class="player-avatar-large" 
+                             alt="${topPlayer.name}"
+                             onerror="this.src='https://ui-avatars.com/api/?name=${topPlayer.name}&background=ccff00&color=000'">
+                    </div>
+                    <h2 class="display-6 fw-bold mb-0 text-white">${topPlayer.name}</h2>
+                    <p class="text-muted small text-uppercase spacing-2 mb-3">'${topPlayer.nickname}'</p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                        <div class="bg-dark rounded p-2 px-3 border border-secondary">
+                            <div class="small text-muted">PUNTI</div>
+                            <div class="fw-bold fs-3" style="color: var(--padel-neon)">${topPlayer.points}</div>
+                        </div>
+                        <div class="bg-dark rounded p-2 px-3 border border-secondary">
+                            <div class="small text-muted">VITTORIE</div>
+                            <div class="fw-bold fs-3 text-white">${topPlayer.won}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
 
-        // Render Table
+        // Render TABELLA
         players.forEach((player, index) => {
             const rank = index + 1;
             let badgeClass = 'rank-other';
-            if(rank === 1) badgeClass = 'rank-1';
+            let rowClass = '';
+            
+            if(rank === 1) { badgeClass = 'rank-1'; rowClass = 'table-active'; }
             if(rank === 2) badgeClass = 'rank-2';
             if(rank === 3) badgeClass = 'rank-3';
 
@@ -156,13 +285,25 @@
                     <td class="text-center">
                         <div class="rank-badge ${badgeClass}">${rank}</div>
                     </td>
-                    <td class="fw-bold fs-5">${player.name}</td>
-                    <td class="text-center">${player.matches}</td>
-                    <td class="text-center">
-                        <span class="text-success">${player.won}</span> - 
-                        <span class="text-danger">${player.lost}</span>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${player.img}" 
+                                 class="player-avatar me-3 shadow-sm" 
+                                 alt="${player.name}"
+                                 onerror="this.src='https://ui-avatars.com/api/?name=${player.name}&background=random&color=fff'">
+                            <div>
+                                <div class="player-name">${player.name}</div>
+                                <div class="player-nickname">${player.nickname}</div>
+                            </div>
+                        </div>
                     </td>
-                    <td class="text-center fw-bold fs-4 text-info">${player.points}</td>
+                    <td class="text-center text-muted fw-bold">${player.matches}</td>
+                    <td class="text-center hide-mobile">
+                        <span class="text-success fw-bold">${player.won}</span> 
+                        <span class="text-muted mx-1">/</span>
+                        <span class="text-danger fw-bold">${player.lost}</span>
+                    </td>
+                    <td class="text-center fw-bold fs-4" style="color: var(--padel-neon); font-family:'Teko'">${player.points}</td>
                 </tr>
             `;
             tableBody.innerHTML += row;
