@@ -411,6 +411,13 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+                    <h5 class="text-white mb-3" style="font-family: 'Teko'; letter-spacing: 1px;">MATCHES PLAYED</h5>
+                    <div class="row" id="match-day-matches">
+                        <!-- Populated by JS -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -426,71 +433,340 @@
         // NOTA: Assicurati di avere una cartella 'images' con i file nominati come sotto.
         // Se non hai l'immagine, userà un placeholder generico.
         const players = [
-            { id: 1, name: "Nicola Paganelli", nickname: "Carroar", img: "images/paga.png" },
-            { id: 2, name: "Nicolas Amadori", nickname: "Gunter", img: "images/ama.png" },
-            { id: 3, name: "Pietro Maggioli", nickname: "Pimo", img: "images/pimo.png" },
-            { id: 4, name: "Niccolò Ricci", nickname: "Trash Talker", img: "images/ricci.png" },
-            { id: 5, name: "Juri Guglielmi", nickname: "Juj", img: "images/juri.png" },
-            { id: 6, name: "Lorenzo Zavoli", nickname: "Commissioni", img: "images/lorenzo.png" },
-            { id: 7, name: "Matteo Renzi", nickname: "Talpa", img: "images/matte.png" },
-            { id: 8, name: "Manuel Benedettini", nickname: "Max", img: "images/manu.png" },
-            { id: 9, name: "Federico Bascioni", nickname: "Peku", img: "images/federico.png" },
-            { id: 10, name: "Giovanni Amadori", nickname: "Guest", img: "images/giovanni.png" },
+            { playerId: "paga", name: "Nicola Paganelli", nickname: "Carroar", img: "images/paga.png" },
+            { playerId: "ama", name: "Nicolas Amadori", nickname: "Gunter", img: "images/ama.png" },
+            { playerId: "pimo", name: "Pietro Maggioli", nickname: "Pimo", img: "images/pimo.png" },
+            { playerId: "nico", name: "Niccolò Ricci", nickname: "Trash Talker", img: "images/ricci.png" },
+            { playerId: "juri", name: "Juri Guglielmi", nickname: "Juj", img: "images/juri.png" },
+            { playerId: "zavo", name: "Lorenzo Zavoli", nickname: "Commissioni", img: "images/lorenzo.png" },
+            { playerId: "matte", name: "Matteo Renzi", nickname: "Talpa", img: "images/matte.png" },
+            { playerId: "max", name: "Manuel Benedettini", nickname: "Max", img: "images/manu.png" },
+            { playerId: "fede", name: "Federico Bascioni", nickname: "Peku", img: "images/federico.png" },
+            { playerId: "giova", name: "Giovanni Amadori", nickname: "Guest", img: "images/giovanni.png" },
+            { playerId: "monte", name: "Emanuele Montemaggi", nickname: "Monte", img: "images/monte.png" },
         ];
 
-        const matchDays = [
+        const newMatchDays = [
             {
                 date: "15/11/2025",
-                results: [
-                    { playerId: 1, won: 4, lost: 2 },
-                    { playerId: 2, won: 3, lost: 4 },
-                    { playerId: 3, won: 3, lost: 4 },
-                    { playerId: 4, won: 1, lost: 5 },
-                    { playerId: 5, won: 6, lost: 1 },
-                    { playerId: 6, won: 0, lost: 0 },
-                    { playerId: 7, won: 2, lost: 4 },
-                    { playerId: 8, won: 3, lost: 3 },
-                    { playerId: 9, won: 0, lost: 0 },
-                    { playerId: 10, won: 4, lost: 3 },
+                matches: [
+                    {
+                        team1: {
+                            players: ["paga", "nico"],
+                            score: 3
+                        },
+                        team2: {
+                            players: ["matte", "max"],
+                            score: 6
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["ama", "pimo"],
+                            score: 1
+                        },
+                        team2: {
+                            players: ["juri", "giova"],
+                            score: 6
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["matte", "max"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "pimo"],
+                            score: 4
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["paga", "nico"],
+                            score: 4
+                        },
+                        team2: {
+                            players: ["juri", "giova"],
+                            score: 6
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["matte", "max"],
+                            score: 4
+                        },
+                        team2: {
+                            players: ["juri", "giova"],
+                            score: 6
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["paga", "nico"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "pimo"],
+                            score: 4
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 4
+                        },
+                        team2: {
+                            players: ["ama", "pimo"],
+                            score: 1
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["giova", "max"],
+                            score: 4
+                        },
+                        team2: {
+                            players: ["nico", "matte"],
+                            score: 2
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["max", "giova"],
+                            score: 0
+                        },
+                        team2: {
+                            players: ["juri", "paga"],
+                            score: 4
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["matte", "nico"],
+                            score: 2
+                        },
+                        team2: {
+                            players: ["ama", "pimo"],
+                            score: 4
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["ama", "pimo"],
+                            score: 5
+                        },
+                        team2: {
+                            players: ["giova", "max"],
+                            score: 4
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["matte", "nico"],
+                            score: 4
+                        },
+                        team2: {
+                            players: ["juri", "paga"],
+                            score: 5
+                        }
+                    }
                 ]
             },
+            {
+                date: "21/11/2025",
+                matches: [
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["nico", "monte"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "max"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["ama", "max"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["nico", "monte"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["nico", "monte"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "max"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["paga", "nico"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "max"],
+                            score: 3
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "nico"],
+                            score: 3
+                        },
+                        team2: {
+                            players: ["ama", "max"],
+                            score: 6
+                        }
+                    },
+                    {
+                        team1: {
+                            players: ["juri", "paga"],
+                            score: 6
+                        },
+                        team2: {
+                            players: ["ama", "nico"],
+                            score: 3
+                        }
+                    },
+                ]
+            }
         ];
-
         // --- 2. LOGICA DI RENDERING ---
 
-        // Calcolo Punti e Statistiche
+        // Helper: Calcolo punti posizione (1° = 1000, 2° = 900, ecc.)
+        function getPositionPoints(rank) {
+            const base = 1000;
+            const decrement = 100;
+            const points = base - ((rank - 1) * decrement);
+            return points > 0 ? points : 0; // Minimo 0 punti
+        }
+
+        // Reset Statistiche
         players.forEach(player => {
             player.matches = 0;
             player.won = 0;
             player.lost = 0;
-            player.points = 0;
+            player.points = 0; // Punti Generali (somma dei punti posizione)
+            player.history = []; // Storico partite/giornate
         });
+
+        // Elaborazione Match Days
+        // Usiamo newMatchDays come fonte dati principale
+        const matchDays = newMatchDays;
 
         matchDays.forEach(day => {
-            day.results.forEach(result => {
-                const player = players.find(p => p.id === result.playerId);
+            // 1. Calcolo statistiche di giornata per ogni giocatore
+            const dayStats = [];
+
+            // Inizializza stats per i giocatori presenti in questa giornata
+            // (O per tutti, ma ci interessano solo quelli che hanno giocato)
+            // Per semplicità, iteriamo su tutti i risultati
+
+            // Mappa temporanea per accumulare vittorie/sconfitte di giornata
+            const dailyPlayerStats = {};
+
+            day.matches.forEach(match => {
+                // Team 1
+                const score1 = match.team1.score;
+                const score2 = match.team2.score;
+
+                const win1 = score1 > score2 ? 1 : 0;
+                const win2 = score2 > score1 ? 1 : 0;
+                // Pareggi? Se score1 == score2. Assumiamo 0 vittorie per entrambi o gestiamo pareggio?
+                // "n_vitore * 250" implica contare le vittorie.
+
+                match.team1.players.forEach(pid => {
+                    if (!dailyPlayerStats[pid]) dailyPlayerStats[pid] = { won: 0, lost: 0, matches: 0 };
+                    dailyPlayerStats[pid].matches++;
+                    dailyPlayerStats[pid].won += win1;
+                    dailyPlayerStats[pid].lost += win2;
+                });
+
+                match.team2.players.forEach(pid => {
+                    if (!dailyPlayerStats[pid]) dailyPlayerStats[pid] = { won: 0, lost: 0, matches: 0 };
+                    dailyPlayerStats[pid].matches++;
+                    dailyPlayerStats[pid].won += win2;
+                    dailyPlayerStats[pid].lost += win1;
+                });
+            });
+
+            // 2. Crea classifica di giornata
+            const dayRanking = [];
+            Object.keys(dailyPlayerStats).forEach(pid => {
+                const stats = dailyPlayerStats[pid];
+                const dayPoints = stats.won * 250; // Punti "di giornata"
+                dayRanking.push({
+                    playerId: pid,
+                    ...stats,
+                    dayPoints: dayPoints
+                });
+            });
+
+            // Ordina per punti di giornata (decrescente)
+            dayRanking.sort((a, b) => b.dayPoints - a.dayPoints);
+
+            // 3. Assegna Punti Posizione e aggiorna Generale
+            dayRanking.forEach((item, index) => {
+                const rank = index + 1;
+                const posPoints = getPositionPoints(rank);
+
+                // Aggiorna giocatore generale
+                const player = players.find(p => p.playerId === item.playerId);
                 if (player) {
-                    player.matches += result.won + result.lost;
-                    player.won += result.won;
-                    player.lost += result.lost;
-                    player.points += (result.won * 250);
+                    player.matches += item.matches;
+                    player.won += item.won;
+                    player.lost += item.lost;
+                    player.points += posPoints; // Somma punti posizione
+
+                    // Salva storico per modale giocatore
+                    player.history.push({
+                        date: day.date,
+                        won: item.won,
+                        lost: item.lost,
+                        dayPoints: item.dayPoints,
+                        posPoints: posPoints,
+                        rank: rank
+                    });
                 }
             });
+
+            // Salviamo la classifica calcolata nel matchDay per uso futuro (modale giornata)
+            day.calculatedRanking = dayRanking;
         });
 
-        // Ordina (Decrescente)
+        // Ordina Classifica Generale (Decrescente)
         players.sort((a, b) => b.points - a.points);
 
         const tableBody = document.getElementById('ranking-body');
         const spotlight = document.getElementById('top-player-spotlight');
         document.getElementById('last-update').textContent = lastUpdate;
-
-        // Funzione helper per immagine fallback (se non trova il file locale usa un avatar generico con le iniziali)
-        function getImg(src, name) {
-            // Nota: In produzione locale, se l'immagine manca si vedrà l'icona "rotta". 
-            // Per gestire errori veri serve un event listener 'onerror' nell'HTML tag, qui semplifichiamo.
-            return src;
-        }
 
         // Render TOP PLAYER (Spotlight)
         const topPlayer = players[0];
@@ -533,10 +809,8 @@
             if (rank === 2) badgeClass = 'rank-2';
             if (rank === 3) badgeClass = 'rank-3';
 
-
-
             const row = `
-                <tr onclick="openPlayerModal(${player.id})" style="cursor: pointer;">
+                <tr onclick="openPlayerModal('${player.playerId}')" style="cursor: pointer;">
                     <td class="text-center">
                         <div class="rank-badge ${badgeClass}">${rank}</div>
                     </td>
@@ -568,7 +842,7 @@
         const playerModal = new bootstrap.Modal(document.getElementById('playerModal'));
 
         function openPlayerModal(playerId) {
-            const player = players.find(p => p.id === playerId);
+            const player = players.find(p => p.playerId === playerId);
             if (!player) return;
 
             // Populate Header
@@ -589,43 +863,25 @@
             const historyBody = document.getElementById('modal-match-history');
             historyBody.innerHTML = '';
 
-            const playerHistory = [];
-            matchDays.forEach(day => {
-                const result = day.results.find(r => r.playerId === playerId);
-                if (result) {
-                    playerHistory.push({
-                        date: day.date,
-                        won: result.won,
-                        lost: result.lost,
-                        points: result.won * 250
-                    });
-                }
-            });
-
-            // Sort history by date desc (optional, assuming matchDays is already sorted or we want latest first)
-            // playerHistory.reverse(); 
-
-            if (playerHistory.length === 0) {
+            // Usa lo storico calcolato
+            if (!player.history || player.history.length === 0) {
                 historyBody.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Nessuna partita giocata</td></tr>';
             } else {
-                playerHistory.forEach(match => {
-                    const resultBadge = match.won > match.lost
-                        ? '<span class="badge bg-success">WIN</span>'
-                        : (match.won < match.lost ? '<span class="badge bg-danger">LOSS</span>' : '<span class="badge bg-secondary">DRAW</span>');
+                // Ordina per data decrescente (opzionale, se non lo sono già)
+                // player.history.reverse(); 
 
-                    // Simple logic: if won > 0 it's a win? Or is it sets? 
-                    // Based on "won: 8, lost: 0" it seems like games or sets. 
-                    // Let's display the score.
-
-                    const scoreDisplay = `<span class="text-success">${match.won}</span> - <span class="text-danger">${match.lost}</span>`;
-
+                player.history.forEach(h => {
                     const row = `
                         <tr>
-                            <td>${match.date}</td>
+                            <td>${h.date}</td>
                             <td class="text-center">
-                                ${scoreDisplay}
+                                <span class="badge bg-secondary">Rank: ${h.rank}</span>
+                                <div class="small text-muted mt-1">Wins: ${h.won}</div>
                             </td>
-                            <td class="text-center" style="color: var(--padel-neon)">+${match.points}</td>
+                            <td class="text-center">
+                                <div style="color: var(--padel-neon)">+${h.posPoints}</div>
+                                <div class="small text-muted">(${h.dayPoints} pts)</div>
+                            </td>
                         </tr>
                     `;
                     historyBody.innerHTML += row;
@@ -657,23 +913,13 @@
             const tbody = document.getElementById('match-day-body');
             tbody.innerHTML = '';
 
-            // Calculate ranking for this day
-            const dayRanking = day.results.map(result => {
-                const player = players.find(p => p.id === result.playerId);
-                return {
-                    player: player,
-                    won: result.won,
-                    lost: result.lost,
-                    points: result.won * 250
-                };
-            });
-
-            // Sort by points desc
-            dayRanking.sort((a, b) => b.points - a.points);
+            // Usa la classifica calcolata
+            const dayRanking = day.calculatedRanking || [];
 
             dayRanking.forEach((item, index) => {
                 const rank = index + 1;
                 let badgeClass = 'rank-other';
+                const player = players.find(p => p.playerId === item.playerId);
 
                 if (rank === 1) badgeClass = 'rank-1';
                 if (rank === 2) badgeClass = 'rank-2';
@@ -686,12 +932,12 @@
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <img src="${item.player.img}" 
+                                <img src="${player.img}" 
                                      class="player-avatar me-3 shadow-sm" 
-                                     alt="${item.player.name}"
-                                     onerror="this.src='https://ui-avatars.com/api/?name=${item.player.name}&background=random&color=fff'">
+                                     alt="${player.name}"
+                                     onerror="this.src='https://ui-avatars.com/api/?name=${player.name}&background=random&color=fff'">
                                 <div>
-                                    <div class="player-name">${item.player.name}</div>
+                                    <div class="player-name">${player.name}</div>
                                 </div>
                             </div>
                         </td>
@@ -700,11 +946,52 @@
                             <span class="text-muted mx-1">/</span>
                             <span class="text-danger fw-bold">${item.lost}</span>
                         </td>
-                        <td class="text-center fw-bold fs-4" style="color: var(--padel-neon); font-family:'Teko'">${item.points}</td>
+                        <td class="text-center fw-bold fs-4" style="color: var(--padel-neon); font-family:'Teko'">${item.dayPoints}</td>
                     </tr>
                 `;
                 tbody.innerHTML += row;
             });
+
+            // --- NEW: Render Matches List ---
+            const matchesContainer = document.getElementById('match-day-matches');
+            matchesContainer.innerHTML = ''; // Clear previous
+
+            if (day.matches && day.matches.length > 0) {
+                day.matches.forEach(match => {
+                    // Helper to get player names
+                    const getNames = (ids) => ids.map(id => {
+                        const p = players.find(pl => pl.playerId === id);
+                        return p ? p.name.split(' ')[0] : id; // Use first name or ID
+                    }).join(' & ');
+
+                    const team1Names = getNames(match.team1.players);
+                    const team2Names = getNames(match.team2.players);
+                    const score1 = match.team1.score;
+                    const score2 = match.team2.score;
+
+                    // Determine winner class
+                    const team1Class = score1 > score2 ? 'text-success fw-bold' : (score1 < score2 ? 'text-danger' : 'text-white');
+                    const team2Class = score2 > score1 ? 'text-success fw-bold' : (score2 < score1 ? 'text-danger' : 'text-white');
+
+                    const matchCard = `
+                        <div class="col-md-6">
+                            <div class="p-3 rounded mb-3" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="${team1Class}">${team1Names}</div>
+                                    <div class="fs-4 fw-bold text-white">${score1}</div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="${team2Class}">${team2Names}</div>
+                                    <div class="fs-4 fw-bold text-white">${score2}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    matchesContainer.innerHTML += matchCard;
+                });
+            } else {
+                matchesContainer.innerHTML = '<div class="col-12 text-center text-muted">No matches data available.</div>';
+            }
 
             matchDayModal.show();
         }
